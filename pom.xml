@@ -35,7 +35,7 @@
     <snapshotRepository>
       <id>es.snapshots</id>
       <name>Development Snapshot Repository</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+      <url>${snapshotDeploymentRepositoryUrl}</url>
     </snapshotRepository>
     <repository>
       <id>es.releases</id>
@@ -50,6 +50,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <snapshotDeploymentRepositoryUrl>${env.SNAPSHOT_REPO}</snapshotDeploymentRepositoryUrl>
   </properties>
 
   <dependencies>
@@ -90,6 +91,13 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.8.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <configuration>
+            <skipStaging>true</skipStaging>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
