@@ -33,8 +33,8 @@
 
   <distributionManagement>
     <snapshotRepository>
-      <id>sonatype-nexus-snapshots</id>
-      <name>Sonatype Nexus Snapshots</name>
+      <id>es.snapshots</id>
+      <name>Development Snapshot Repository</name>
       <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
     </snapshotRepository>
     <repository>
