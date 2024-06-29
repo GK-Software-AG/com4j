@@ -1,11 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.kohsuke</groupId>
-    <artifactId>pom</artifactId>
-    <version>6</version>
-    <relativePath />
-  </parent>
 
   <groupId>com.gk-software.oss.com4j</groupId>
   <artifactId>com4j-parent</artifactId>
@@ -22,7 +16,7 @@
   </modules>
 
   <description>Type-safe Java/COM bridge. This fork is maintained by GK Software.</description>
-  <url>http://com4j.kohsuke.org/</url>
+  <url>https://github.com/GK-Software-AG/com4j</url>
 
   <scm>
     <connection>scm:git:https://github.com/GK-Software-AG/com4j.git</connection>
@@ -30,6 +24,48 @@
     <url>https://github.com/GK-Software-AG/com4j.git</url>
     <tag>GK-dev</tag>
   </scm>
+
+  <developers>
+    <developer>
+      <name>Kohsuke Kawaguchi</name>
+      <id>kohsuke</id>
+      <email>kk@kohsuke.org</email>
+      <roles>
+        <role>Original main developer &amp; project leader of https://github.com/kohsuke/com4j</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Tony Roberts</name>
+      <id>tonyroberts</id>
+      <email>tony@pyxll.com</email>
+      <roles>
+        <role>Fork developer of https://github.com/exceljava/com4j</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Maximilian Gerhard</name>
+      <id>mgerhard-gk</id>
+      <email>mgerhard@gk-software.com</email>
+      <roles>
+        <role>Fork developer of https://github.com/GK-Software-AG/com4j</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <contributors>
+    <contributor>
+      <name>Contributors at com4j</name>
+      <url>https://github.com/kohsuke/com4j/graphs/contributors</url>
+    </contributor>
+    <contributor>
+      <name>Contributors at exceljava/com4j</name>
+      <url>https://github.com/exceljava/com4j/graphs/contributors</url>
+    </contributor>
+    <contributor>
+      <name>Contributors at GK-Software-AG/com4j</name>
+      <url>https://github.com/GK-Software-AG/com4j/graphs/contributors</url>
+    </contributor>
+  </contributors>
 
   <distributionManagement>
     <snapshotRepository>
@@ -42,10 +78,6 @@
       <name>Release Distribution Repository</name>
       <url>${releaseDeploymentRepositoryUrl}</url>
     </repository>
-    <site>
-      <id>github-pages</id>
-      <url>gitsite:>https://github.com/GK-Software-AG/com4j.git</url>
-    </site>
   </distributionManagement>
 
   <properties>
@@ -54,7 +86,6 @@
   </properties>
 
   <dependencies>
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -88,26 +119,61 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.16.2</version>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.8.2</version>
+          <configuration>
+            <retryFailedDeploymentCount>3</retryFailedDeploymentCount>
+          </configuration>
         </plugin>
         <plugin>
-          <groupId>org.sonatype.plugins</groupId>
-          <artifactId>nexus-staging-maven-plugin</artifactId>
-          <configuration>
-            <skipStaging>true</skipStaging>
-          </configuration>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.2.0</version>
         </plugin>
       </plugins>
     </pluginManagement>
 
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.2</version>
+      </plugin>
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <releaseProfiles>release</releaseProfiles>
         </configuration>
       </plugin>
     </plugins>
@@ -130,6 +196,25 @@
       <properties>
         <releaseDeploymentRepositoryUrl>${env.RELEASE_REPO}</releaseDeploymentRepositoryUrl>
       </properties>
+    </profile>
+    <profile>
+      <id>gpg</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 
