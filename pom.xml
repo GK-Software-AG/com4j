@@ -3,7 +3,7 @@
 
   <groupId>com.gk-software.oss.com4j</groupId>
   <artifactId>com4j-parent</artifactId>
-  <version>2.2-b01</version>
+  <version>2.2-b02-SNAPSHOT</version>
 
   <name>com4j Parent</name>
   <packaging>pom</packaging>
