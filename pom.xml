@@ -3,7 +3,7 @@
 
   <groupId>com.gk-software.oss.com4j</groupId>
   <artifactId>com4j-parent</artifactId>
-  <version>2.2-b02</version>
+  <version>2.2-b03-SNAPSHOT</version>
 
   <name>com4j Parent</name>
   <packaging>pom</packaging>
@@ -22,7 +22,7 @@
     <connection>scm:git:git@github.com/GK-Software-AG/com4j.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/GK-Software-AG/com4j.git</developerConnection>
     <url>https://github.com/GK-Software-AG/com4j.git</url>
-    <tag>com4j-parent-2.2-b02</tag>
+    <tag>GK-dev</tag>
   </scm>
 
   <developers>
