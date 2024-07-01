@@ -19,8 +19,8 @@
   <url>https://github.com/GK-Software-AG/com4j</url>
 
   <scm>
-    <connection>scm:git:git@github.com:GK-Software-AG/com4j.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com:GK-Software-AG/com4j.git</developerConnection>
+    <connection>scm:git:git@github.com/GK-Software-AG/com4j.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/GK-Software-AG/com4j.git</developerConnection>
     <url>https://github.com/GK-Software-AG/com4j.git</url>
     <tag>GK-dev</tag>
   </scm>
