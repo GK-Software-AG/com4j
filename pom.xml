@@ -83,6 +83,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <snapshotDeploymentRepositoryUrl>${env.SNAPSHOT_REPO}</snapshotDeploymentRepositoryUrl>
+    <maven.javadoc.version>3.4.1</maven.javadoc.version>
   </properties>
 
   <dependencies>
@@ -99,7 +100,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.4.1</version>
+        <version>${maven.javadoc.version}</version>
         <configuration>
           <quiet>true</quiet>
           <doclint>none</doclint>
@@ -136,6 +137,15 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
           <version>3.2.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${maven.javadoc.version}</version>
+          <configuration>
+            <quiet>true</quiet>
+            <doclint>none</doclint>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
