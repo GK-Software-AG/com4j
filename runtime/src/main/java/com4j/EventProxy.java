@@ -1,15 +1,15 @@
 package com4j;
 
-import java.io.StringWriter;
 import java.io.PrintWriter;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.WeakHashMap;
-import java.util.Collections;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.lang.reflect.Method;
+import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * For receiving events from COM, we use one native object (CEventReceiver)
@@ -170,12 +170,21 @@ final class EventProxy<T> implements EventCookie {
                     throw new ComException("Argument length mismatch. Expected "+params.length+" but found "+args.length,DISP_E_BADPARAMCOUNT);
 
                 Object[] oargs = new Object[args.length];
-                for( int i=0; i<args.length; i++ ) {
-                    try {
-                        oargs[i] = args[i].convertTo(params[i]);
-                    } catch (Exception e) {
-                        logger.log(Level.WARNING, "Unable to convert param["+ i + "] " +params[i] + " of method "+method,e);
-                        oargs[i] = null;
+                if (method != null && "directIOEvent".equals(method.getName())) {
+                    // TODO debug com4j native part to find out why convertTo
+                    // method crashes JVM
+                    oargs[0] = args[0].convertTo(params[0]);
+                    oargs[1] = null;
+                    oargs[2] = null;
+                } else {
+                    for (int i = 0; i < args.length; i++) {
+                        try {
+                            oargs[i] = args[i].convertTo(params[i]);
+                        } catch (Exception e) {
+                            logger.log(Level.WARNING,
+                                    "Unable to convert param[" + i + "] " + params[i] + " of method " + method, e);
+                            oargs[i] = null;
+                        }
                     }
                 }
                 return method.invoke(o,oargs);
